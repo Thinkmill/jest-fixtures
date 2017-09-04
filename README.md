@@ -10,24 +10,26 @@ yarn add --dev jest-fixtures
 
 ## API
 
-##### `getFixturePath(cwd, name)`
+##### `getFixturePath(cwd, ...fileParts)`
 
 ```js
 import {getFixturePath} from 'jest-fixtures';
 
 test('foo', async () => {
   let fixturePath = await getFixturePath(__dirname, 'foo');
+  let fixtureFilePath = await getFixturePath(__dirname, 'foo', 'file.txt');
   // ...
 });
 ```
 
-##### `getFixturePathSync(cwd, name)`
+##### `getFixturePathSync(cwd, ...fileParts)`
 
 ```js
 import {getFixturePathSync} from 'jest-fixtures';
 
 test('foo', () => {
   let fixturePath = getFixturePathSync(__dirname, 'foo');
+  let fixtureFilePath = getFixturePathSync(__dirname, 'foo', 'file.txt');
   // ...
 });
 ```

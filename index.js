@@ -4,12 +4,12 @@
 const path = require('path');
 const findUp = require('find-up');
 
-function getFixturePath(cwd /*: string */, name /*: string */) {
-  return findUp(path.join('__fixtures__', name), { cwd });
+function getFixturePath(cwd /*: string */, ...fileParts /*: Array<string> */) {
+  return findUp(path.join('__fixtures__', ...fileParts), { cwd });
 }
 
-function getFixturePathSync(cwd /*: string */, name /*: string */) {
-  return findUp.sync(path.join('__fixtures__', name), { cwd });
+function getFixturePathSync(cwd /*: string */, ...fileParts /*: Array<string> */) {
+  return findUp.sync(path.join('__fixtures__', ...fileParts), { cwd });
 }
 
 module.exports = {

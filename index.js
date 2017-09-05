@@ -17,7 +17,7 @@ function getFixturePath(cwd /*: string */ /*::, ...fileParts: Array<string> */) 
   return findUp(toFixturesDir(args), { cwd });
 }
 
-function getFixturePathSync(cwd /*: string */, ...fileParts /*: Array<string> */) {
+function getFixturePathSync(cwd /*: string */ /*::, ...fileParts: Array<string> */) {
   let args = Array.prototype.slice.call(arguments, 1);
   return findUp.sync(toFixturesDir(args), { cwd });
 }

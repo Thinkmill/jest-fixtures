@@ -6,12 +6,20 @@ const path = require('path');
 const findUp = require('find-up');
 const promisify = require('typeable-promisify');
 
-function getFixturePath(cwd /*: string */, ...fileParts /*: Array<string> */) {
-  return findUp(path.join('__fixtures__', ...fileParts), { cwd });
+const slice = Array.prototype.slice;
+
+function toFixturesDir(fileParts) {
+  return path.join.apply(null, ['__fixtures__'].concat(fileParts));
+}
+
+function getFixturePath(cwd /*: string */ /*::, ...fileParts: Array<string> */) {
+  let args = Array.prototype.slice.call(arguments, 1);
+  return findUp(toFixturesDir(args), { cwd });
 }
 
 function getFixturePathSync(cwd /*: string */, ...fileParts /*: Array<string> */) {
-  return findUp.sync(path.join('__fixtures__', ...fileParts), { cwd });
+  let args = Array.prototype.slice.call(arguments, 1);
+  return findUp.sync(toFixturesDir(args), { cwd });
 }
 
 function getTempPath(name) {

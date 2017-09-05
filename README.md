@@ -87,3 +87,25 @@ test('foo', async () => {
   // ...
 });
 ```
+
+##### `createTempDir(name)`
+
+```js
+import {createTempDir} from 'jest-fixtures';
+
+test('foo', async () => {
+  let tempDirPath = await createTempDir('foo');
+  // ...
+});
+```
+
+##### `createTempDirSync(name)`
+
+```js
+import {createTempDirSync} from 'jest-fixtures';
+
+test('foo', async () => {
+  let tempDirPath = createTempDirSync('foo');
+  // ...
+});
+```

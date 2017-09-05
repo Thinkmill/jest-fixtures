@@ -13,7 +13,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "find-up": "^2.1.0"
+    "find-up": "^2.1.0",
+    "typeable-promisify": "^2.0.1"
   },
   "devDependencies": {
     "flow-bin": "^0.54.0",

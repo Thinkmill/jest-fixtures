@@ -1,7 +1,13 @@
 // @flow
 'use strict';
 
-const {getFixturePath, getFixturePathSync} = require('./');
+const {
+  getFixturePath,
+  getFixturePathSync,
+  createTempDir,
+  createTempDirSync,
+} = require('./');
+const fs = require('fs');
 const path = require('path');
 
 const FIXTURES_DIR = path.join(__dirname, 'fixtures');
@@ -43,5 +49,23 @@ describe('getFixturePathSync()', () => {
   it('should work with a nested file', () => {
     let fixturePath = getFixturePathSync(NESTED_DIR, 'foo', 'file.txt');
     expect(fixturePath).toEqual(FOO_FILE_TXT);
+  });
+});
+
+describe('createTempDir', () => {
+  it('should create a directory in /tmp', async () => {
+    let dirName = await createTempDir('foo');
+    expect(dirName.startsWith('/tmp/foo-')).toBe(true);
+    let stat = fs.statSync(dirName);
+    expect(stat.isDirectory()).toBe(true);
+  });
+});
+
+describe('createTempDirSync', () => {
+  it('should create a directory in /tmp', async () => {
+    let dirName = createTempDirSync('foo');
+    expect(dirName.startsWith('/tmp/foo-')).toBe(true);
+    let stat = fs.statSync(dirName);
+    expect(stat.isDirectory()).toBe(true);
   });
 });

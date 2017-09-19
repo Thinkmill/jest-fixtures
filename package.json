@@ -1,6 +1,6 @@
 {
   "name": "jest-fixtures",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Use file system fixtures in Jest",
   "main": "index.js",
   "repository": "Thinkmill/jest-fixtures",

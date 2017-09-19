@@ -13,6 +13,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "cpr": "^2.2.0",
+    "cpy": "^5.1.0",
     "find-up": "^2.1.0",
     "typeable-promisify": "^2.0.1"
   },

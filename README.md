@@ -15,9 +15,9 @@ yarn add --dev jest-fixtures
 ```js
 import {getFixturePath} from 'jest-fixtures';
 
-test('foo', async () => {
-  let fixturePath = await getFixturePath(__dirname, 'foo');
-  let fixtureFilePath = await getFixturePath(__dirname, 'foo', 'file.txt');
+test('example', async () => {
+  let fixturePath = await getFixturePath(__dirname, 'fixture-name');
+  let fixtureFilePath = await getFixturePath(__dirname, 'fixture-name', 'file.txt');
   // ...
 });
 ```
@@ -27,19 +27,76 @@ test('foo', async () => {
 ```js
 import {getFixturePathSync} from 'jest-fixtures';
 
-test('foo', () => {
-  let fixturePath = getFixturePathSync(__dirname, 'foo');
-  let fixtureFilePath = getFixturePathSync(__dirname, 'foo', 'file.txt');
+test('example', () => {
+  let fixturePath = getFixturePathSync(__dirname, 'fixture-name');
+  let fixtureFilePath = getFixturePathSync(__dirname, 'fixture-name', 'file.txt');
   // ...
 });
 ```
+
+##### `createTempDir()`
+
+```js
+import {createTempDir} from 'jest-fixtures';
+
+test('example', async () => {
+  let tempDirPath = await createTempDir();
+  // ...
+});
+```
+
+##### `createTempDirSync()`
+
+```js
+import {createTempDirSync} from 'jest-fixtures';
+
+test('example', () => {
+  let tempDirPath = createTempDirSync();
+  // ...
+});
+```
+
+##### `copyDir()`
+
+```js
+import {copyDir} from 'jest-fixtures';
+
+test('example', async () => {
+  let files = await copyDir('/path/to/source/dir', '/path/to/dest/dir');
+  // ...
+});
+```
+
+##### `copyDirIntoTempDir()`
+
+```js
+import {copyDirIntoTempDir} from 'jest-fixtures';
+
+test('example', async () => {
+  let {tempDir, files} = await copyDirIntoTempDir('/path/to/source/dir');
+  // ...
+});
+```
+
+##### `copyFixtureIntoTempDir()`
+
+```js
+import {copyFixtureIntoTempDir} from 'jest-fixtures';
+
+test('example', async () => {
+  let {tempDir, files} = await copyFixtureIntoTempDir(__dirname, 'fixture-name');
+  // ...
+});
+```
+
+<!--
 
 ##### `loadFixture(fixturePath)` _[unimplemented]_
 
 ```js
 import {getFixturePath, loadFixture} from 'jest-fixtures';
 
-test('foo', async () => {
+test('example', async () => {
   let fixturePath = await getFixturePath(__dirname, 'foo');
   let fixture = await loadFixture(fixturePath);
   // ...
@@ -51,7 +108,7 @@ test('foo', async () => {
 ```js
 import {getFixturePathSync, loadFixtureSync} from 'jest-fixtures';
 
-test('foo', () => {
+test('example', () => {
   let fixturePath = getFixturePathSync(__dirname, 'foo');
   let fixture = loadFixtureSync(fixturePath);
   // ...
@@ -80,7 +137,7 @@ import * as fs from 'fs';
 
 jest.mock('fs');
 
-test('foo', async () => {
+test('example', async () => {
   let fixturePath = await getFixturePath(__dirname, 'foo');
   let fixture = await loadFixture(fixturePath);
   fs.__setFixture__(fixture);
@@ -88,24 +145,4 @@ test('foo', async () => {
 });
 ```
 
-##### `createTempDir(name)`
-
-```js
-import {createTempDir} from 'jest-fixtures';
-
-test('foo', async () => {
-  let tempDirPath = await createTempDir('foo');
-  // ...
-});
-```
-
-##### `createTempDirSync(name)`
-
-```js
-import {createTempDirSync} from 'jest-fixtures';
-
-test('foo', async () => {
-  let tempDirPath = createTempDirSync('foo');
-  // ...
-});
-```
+-->

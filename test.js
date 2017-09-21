@@ -81,7 +81,7 @@ describe('copyDir', () => {
     let tempDir = fixtures.createTempDirSync();
     let fixturePath = fixtures.getFixturePathSync(NESTED_DIR, 'bar');
 
-    return fixtures.copyDir(fixturePath, tempDir).then(files => {
+    return fixtures.copyDir(fixturePath, tempDir).then(() => {
       assertCopiedFiles(tempDir);
     });
   });
@@ -90,16 +90,16 @@ describe('copyDir', () => {
 describe('copyDirIntoTempDir', () => {
   it('should copy files into a directory', () => {
     let fixturePath = fixtures.getFixturePathSync(NESTED_DIR, 'bar');
-    return fixtures.copyDirIntoTempDir(fixturePath).then(result => {
-      assertCopiedFiles(result.tempDir, result.files);
+    return fixtures.copyDirIntoTempDir(fixturePath).then(tempDir => {
+      assertCopiedFiles(tempDir);
     });
   });
 });
 
 describe('copyFixtureIntoTempDir', () => {
   it('should copy files into a directory', () => {
-    return fixtures.copyFixtureIntoTempDir(NESTED_DIR, 'bar').then(result => {
-      assertCopiedFiles(result.tempDir, result.files);
+    return fixtures.copyFixtureIntoTempDir(NESTED_DIR, 'bar').then(tempDir => {
+      assertCopiedFiles(tempDir);
     });
   });
 });

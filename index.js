@@ -36,7 +36,7 @@ function copyDir(sourceDir /*: string */, destDir /*: string */) {
 }
 
 function copyDirIntoTempDir(sourceDir /*: string */) {
-  return createTempDir().then(tempDir => copyDir(sourceDir, tempDir).then(files => ({tempDir, files})));
+  return createTempDir().then(tempDir => copyDir(sourceDir, tempDir).then(() => (tempDir)));
 }
 
 function copyFixtureIntoTempDir(cwd /*: string */ /*::, ...fileParts: Array<string> */) {

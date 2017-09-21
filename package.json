@@ -13,7 +13,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "cpy": "^5.1.0",
     "find-up": "^2.1.0",
     "fs-extra": "^4.0.2",
     "typeable-promisify": "^2.0.1"

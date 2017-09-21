@@ -69,25 +69,20 @@ describe('createTempDirSync', () => {
   });
 });
 
-function assertCopiedFiles(tempDir, files) {
-  expect(files).toHaveLength(4);
-  expect(files.map(fileName => path.relative(tempDir, fileName))).toEqual([
-    "",
-    "file.txt",
-    "nested",
-    "nested/file.txt",
-  ]);
-  expect(fs.statSync(path.join(tempDir, 'file.txt')).isFile()).toBe(true);
-  expect(fs.statSync(path.join(tempDir, 'nested')).isDirectory()).toBe(true);
-  expect(fs.statSync(path.join(tempDir, 'nested', 'file.txt')).isFile()).toBe(true);
+function assertCopiedFiles(tempDir) {
+  expect(fs.lstatSync(path.join(tempDir, 'symlink-to-file')).isSymbolicLink()).toBe(true);
+  expect(fs.lstatSync(path.join(tempDir, 'file.txt')).isFile()).toBe(true);
+  expect(fs.lstatSync(path.join(tempDir, 'nested')).isDirectory()).toBe(true);
+  expect(fs.lstatSync(path.join(tempDir, 'nested', 'nested-file.txt')).isFile()).toBe(true);
 }
 
 describe('copyDir', () => {
   it('should copy files into a directory', () => {
     let tempDir = fixtures.createTempDirSync();
     let fixturePath = fixtures.getFixturePathSync(NESTED_DIR, 'bar');
+
     return fixtures.copyDir(fixturePath, tempDir).then(files => {
-      assertCopiedFiles(tempDir, files);
+      assertCopiedFiles(tempDir);
     });
   });
 });

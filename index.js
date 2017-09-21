@@ -1,8 +1,7 @@
 // @flow
 'use strict';
 
-const fs = require('fs');
-const cpr = require('cpr');
+const fs = require('fs-extra');
 const path = require('path');
 const findUp = require('find-up');
 const promisify = require('typeable-promisify');
@@ -33,7 +32,7 @@ function createTempDirSync() {
 }
 
 function copyDir(sourceDir /*: string */, destDir /*: string */) {
-  return promisify(cb => cpr(sourceDir, destDir, cb));
+  return promisify(cb => fs.copy(sourceDir, destDir, cb));
 }
 
 function copyDirIntoTempDir(sourceDir /*: string */) {

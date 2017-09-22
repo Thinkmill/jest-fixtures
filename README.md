@@ -62,7 +62,7 @@ test('example', () => {
 import {copyDir} from 'jest-fixtures';
 
 test('example', async () => {
-  let files = await copyDir('/path/to/source/dir', '/path/to/dest/dir');
+  await copyDir('/path/to/source/dir', '/path/to/dest/dir');
   // ...
 });
 ```
@@ -73,7 +73,7 @@ test('example', async () => {
 import {copyDirIntoTempDir} from 'jest-fixtures';
 
 test('example', async () => {
-  let {tempDir, files} = await copyDirIntoTempDir('/path/to/source/dir');
+  let tempDir = await copyDirIntoTempDir('/path/to/source/dir');
   // ...
 });
 ```
@@ -84,7 +84,7 @@ test('example', async () => {
 import {copyFixtureIntoTempDir} from 'jest-fixtures';
 
 test('example', async () => {
-  let {tempDir, files} = await copyFixtureIntoTempDir(__dirname, 'fixture-name');
+  let tempDir = await copyFixtureIntoTempDir(__dirname, 'fixture-name');
   // ...
 });
 ```

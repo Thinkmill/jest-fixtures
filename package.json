@@ -6,6 +6,12 @@
   "repository": "Thinkmill/jest-fixtures",
   "author": "James Kyle <me@thejameskyle.com>",
   "license": "MIT",
+  "keywords": [
+    "jest",
+    "test",
+    "fixtures",
+    "tmp"
+  ],
   "files": [
     "index.js"
   ],

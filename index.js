@@ -5,9 +5,12 @@ const fs = require('fs-extra');
 const path = require('path');
 const findUp = require('find-up');
 const promisify = require('typeable-promisify');
+const onExit = require('signal-exit');
+const rimraf = require('rimraf');
 
 const slice = Array.prototype.slice;
 const TEMP_PATH = path.join('/tmp', 'jest-fixture-');
+const TEMP_DIRS_CREATED = [];
 
 function toFixturesDir(fileParts) {
   return path.join.apply(null, ['__fixtures__'].concat(fileParts));
@@ -24,11 +27,16 @@ function getFixturePathSync(cwd /*: string */ /*::, ...fileParts: Array<string> 
 }
 
 function createTempDir() {
-  return promisify(cb => fs.mkdtemp(TEMP_PATH, cb));
+  return promisify(cb => fs.mkdtemp(TEMP_PATH, cb)).then(tempDir => {
+    TEMP_DIRS_CREATED.push(tempDir);
+    return tempDir;
+  });
 }
 
 function createTempDirSync() {
-  return fs.mkdtempSync(TEMP_PATH);
+  let tempDir = fs.mkdtempSync(TEMP_PATH);
+  TEMP_DIRS_CREATED.push(tempDir);
+  return tempDir;
 }
 
 function copyDir(sourceDir /*: string */, destDir /*: string */) {
@@ -43,6 +51,17 @@ function copyFixtureIntoTempDir(cwd /*: string */ /*::, ...fileParts: Array<stri
   return getFixturePath.apply(null, arguments).then(fixturePath => copyDirIntoTempDir(fixturePath));
 }
 
+function cleanupTempDirs() {
+  TEMP_DIRS_CREATED.forEach(tempDir => {
+    try {
+      rimraf.sync(tempDir);
+    } catch (err) {}
+  });
+  TEMP_DIRS_CREATED.length = 0;
+}
+
+onExit(cleanupTempDirs);
+
 module.exports = {
   getFixturePath,
   getFixturePathSync,
@@ -51,4 +70,5 @@ module.exports = {
   copyDir,
   copyDirIntoTempDir,
   copyFixtureIntoTempDir,
+  cleanupTempDirs,
 };

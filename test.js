@@ -103,3 +103,38 @@ describe('copyFixtureIntoTempDir', () => {
     });
   });
 });
+
+describe('cleanupTempDirs', () => {
+  it('should delete all the tmp dirs created with createTempDirSync', () => {
+    let tempDir1 = fixtures.createTempDirSync();
+    let tempDir2 = fixtures.createTempDirSync();
+    fixtures.cleanupTempDirs();
+    expect(() => fs.statSync(tempDir1)).toThrow();
+    expect(() => fs.statSync(tempDir2)).toThrow();
+  });
+
+  it('should delete all the tmp dirs created with createTempDir', () => {
+    return fixtures.createTempDir().then(tempDir1 => {
+      return fixtures.createTempDir().then(tempDir2 => {
+        fixtures.cleanupTempDirs();
+        expect(() => fs.statSync(tempDir1)).toThrow();
+        expect(() => fs.statSync(tempDir2)).toThrow();
+      });
+    });
+  });
+
+  it('should delete all the tmp dirs created with createTempDir', () => {
+    let fixturePath = fixtures.getFixturePathSync(NESTED_DIR, 'bar');
+    return fixtures.copyDirIntoTempDir(fixturePath).then(tempDir => {
+      fixtures.cleanupTempDirs();
+      expect(() => fs.statSync(tempDir)).toThrow();
+    });
+  });
+
+  it('should delete all the tmp dirs created with copyFixtureIntoTempDir', () => {
+    return fixtures.copyFixtureIntoTempDir(NESTED_DIR, 'bar').then(tempDir => {
+      fixtures.cleanupTempDirs();
+      expect(() => fs.statSync(tempDir)).toThrow();
+    });
+  });
+});

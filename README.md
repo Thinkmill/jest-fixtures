@@ -89,6 +89,21 @@ test('example', async () => {
 });
 ```
 
+##### `cleanupTempDirs()`
+
+Deletes every temporary directory created by `jest-fixtures`. This is called
+automatically when the Jest process exits.
+
+```js
+import {createTempDir, cleanupTempDirs} from 'jest-fixtures';
+
+test('example', async () => {
+  await createTempDir();
+  await createTempDir();
+  cleanupTempDirs();
+});
+```
+
 <!--
 
 ##### `loadFixture(fixturePath)` _[unimplemented]_
